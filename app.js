@@ -12,7 +12,13 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+
+// Updated CORS configuration to allow requests from deployed frontend
+app.use(cors({
+  origin: ['https://expense-tracker-frontend-7brx.onrender.com'],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+}));
 
 // Routes
 app.use('/api/auth', authRoutes);
@@ -26,3 +32,10 @@ app.use(errorHandler);
 connectDB();
 
 module.exports = app;
+
+
+
+// Middleware
+// app.use(express.json());
+// app.use(cookieParser());
+// app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
